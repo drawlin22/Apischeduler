@@ -1,23 +1,20 @@
-let nineAm = $('#hour-9')
-let tenAm = $('#hour-10')
-let elevenAm = $('#hour-11')
-let noon = $('#hour-12')
-let onePm = $('#hour-13')
-let twoPM = $('#hour-14')
-let threePm = $('#hour-15')
-let fourPm = $('#hour-16')
-let fivePm = $('#hour-17')
-
-
+// let nineAm = $('#hour-9')
+// let tenAm = $('#hour-10')
+// let elevenAm = $('#hour-11')
+// let noon = $('#hour-12')
+// let onePm = $('#hour-13')
+// let twoPM = $('#hour-14')
+// let threePm = $('#hour-15')
+// let fourPm = $('#hour-16')
+// let fivePm = $('#hour-17')
 
 let currentDate = dayjs()
 $('#currentDay').text(currentDate.format('dddd, MMMM D YYYY, h:mm:ss a'));
 
 let currentHour = currentDate.format('HH');
 
+
 document.getElementsByClassName("time-block")
-
-
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
@@ -34,54 +31,40 @@ function checkTime() {
 
 
   for (i=0; i < timeBlock.length; i++) {
-  console.log (timeBlock)
+   let id = parseInt(timeBlock[i].id.split('-')[1])
   
-  if (currentHour === timeBlock) {
-    nineAm.addClass('present');
-  } else if (currentHour < timeBlock) {
-    nineAm.addClass('past');
-  } else if (currentHour > timeBlock) {
-    nineAm.addClass('future');
+  if (currentHour == id) {
+    timeBlock[i].className = 'row time-block present'
+  } else if (currentHour > id) {
+    timeBlock[i].className = 'row time-block past'
+  } else if (currentHour < id) {
+    timeBlock[i].className = 'row time-block future'
   };
 
  
   }
 }
 
-function getHourId (event) {
-let button = event.target
-var timeBlock = button.closest('.time-block')
-var hourId = timeBlock.id;
+function saveInput (event) {
+  let timeBlockId = this.parentElement.id;
+  let userInput = this.preiousElementSibling.value
+  let userInputString = JSON.stringify(userInput)
+  localStorage.setItem(timeBlockId, userInput)
 
-console.log (hourId)
+console.log (userInput)
+  }
 
+function retrieveInput(event) {
+  let timeBlockId = this.parentElement.id;
+  let userInputString = localStorage.getItem(timeBlockId)
+  let userInput = JSON.parse(userInputString)
 }
-let button = document.getElementsByClassName('btn')
-button.addEventListener("click", getHourId);
 
+let saveBtn = document.getElementsByClassName('saveBtn')
+$("saveBtn").on("click", saveInput)
 
-/* if statments  
-
-if time < current time apply class "past" gray
-
-if time === current time apply class "present" red
-
-if time > current time apply class "future" green
-
-
-
-
-//
-  // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
 
-
-}
-
-function eventSave() {
 
   /* event listener to save button to save text in local storage using ID*/
 
@@ -101,10 +84,6 @@ function eventSave() {
 
 
 // /* GIVEN I am using a daily planner to create a schedule
-// WHEN I scroll down
-// THEN I am presented with time blocks for standard business hours of 9am to 5pm
-// WHEN I view the time blocks for that day
-// THEN each time block is color-coded to indicate whether it is in the past, present, or future
 // WHEN I click into a time block
 // THEN I can enter an event
 // WHEN I click the save button for that time block
