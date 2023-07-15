@@ -2,27 +2,21 @@ let nineAm = $('#hour-9')
 let tenAm = $('#hour-10')
 let elevenAm = $('#hour-11')
 let noon = $('#hour-12')
-let onePm = $('#hour-1')
-let twoPM = $('#hour-2')
-let threePm = $('#hour-3')
-let fourPm = $('#hour-4')
-let fivePm = $('#hour-5')
+let onePm = $('#hour-13')
+let twoPM = $('#hour-14')
+let threePm = $('#hour-15')
+let fourPm = $('#hour-16')
+let fivePm = $('#hour-17')
 
 
 
-let currentDate = dayjs().format('dddd, MMMM D YYYY, h:mm:ss a');
-$('#currentDay').text(currentDate);
+let currentDate = dayjs()
+$('#currentDay').text(currentDate.format('dddd, MMMM D YYYY, h:mm:ss a'));
 
-let currentHour = currentDate.hours()
+let currentHour = currentDate.format('HH');
 
-if (currentHour === 9) {
-  nineAm.classList.add('present');
-} else if (currentHour < 9) {
-  nineAm.classList.add('past');
-} 
-// else (currentHour > 9) {
-//   nineAm.classList.add('future');
-// };
+document.getElementsByClassName("time-block")
+
 
 
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
@@ -36,12 +30,34 @@ checkTime()
 function checkTime() {
 
   // if currentTime = 
+  let timeBlock= document.getElementsByClassName("time-block")
 
+
+  for (i=0; i < timeBlock.length; i++) {
+  console.log (timeBlock)
+  
+  if (currentHour === timeBlock) {
+    nineAm.addClass('present');
+  } else if (currentHour < timeBlock) {
+    nineAm.addClass('past');
+  } else if (currentHour > timeBlock) {
+    nineAm.addClass('future');
+  };
+
+ 
+  }
 }
 
-function saveText () {
+function getHourId (event) {
+let button = event.target
+var timeBlock = button.closest('.time-block')
+var hourId = timeBlock.id;
+
+console.log (hourId)
 
 }
+let button = document.getElementsByClassName('btn')
+button.addEventListener("click", getHourId);
 
 
 /* if statments  
