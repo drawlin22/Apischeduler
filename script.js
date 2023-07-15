@@ -47,7 +47,7 @@ function checkTime() {
 
 function saveInput (event) {
   let timeBlockId = this.parentElement.id;
-  let userInput = this.preiousElementSibling.value
+  let userInput = this.previousElementSibling.value
   let userInputString = JSON.stringify(userInput)
   localStorage.setItem(timeBlockId, userInput)
 
