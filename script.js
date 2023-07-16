@@ -1,12 +1,4 @@
-// let nineAm = $('#hour-9')
-// let tenAm = $('#hour-10')
-// let elevenAm = $('#hour-11')
-// let noon = $('#hour-12')
-// let onePm = $('#hour-13')
-// let twoPM = $('#hour-14')
-// let threePm = $('#hour-15')
-// let fourPm = $('#hour-16')
-// let fivePm = $('#hour-17')
+
 
 let currentDate = dayjs()
 $('#currentDay').text(currentDate.format('dddd, MMMM D YYYY, h:mm:ss a'));
@@ -19,14 +11,16 @@ document.getElementsByClassName("time-block")
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function pageLoad() {
-checkTime()
 
+
+$(function pageLoad() { /* when the page is laoded the check time function as well as the retieveInput fuctions are called */
+checkTime()
+retrieveInput()
 });
 
-function checkTime() {
+function checkTime() { /* checkTime fuction compres the current time to the timeBlocks on the calendar iterating over each ID to change colors */
 
-  // if currentTime = 
+  
   let timeBlock= document.getElementsByClassName("time-block")
 
 
@@ -51,42 +45,24 @@ function saveInput (event) {
   let userInputString = JSON.stringify(userInput)
   localStorage.setItem(timeBlockId, userInput)
 
-console.log (userInput)
+
   }
 
+  console.log ()
+
 function retrieveInput(event) {
-  let timeBlockId = this.parentElement.id;
-  let userInputString = localStorage.getItem(timeBlockId)
-  let userInput = JSON.parse(userInputString)
+  $("#hour-9 .description").val(localStorage.getItem("hour-9"));
+  $("#hour-10 .description").val(localStorage.getItem("hour-10"));
+  $("#hour-11 .description").val(localStorage.getItem("hour-11"));
+  $("#hour-12 .description").val(localStorage.getItem("hour-12"));
+  $("#hour-13 .description").val(localStorage.getItem("hour-13"));
+  $("#hour-14 .description").val(localStorage.getItem("hour-14"));
+  $("#hour-15 .description").val(localStorage.getItem("hour-15"));
+  $("#hour-16 .description").val(localStorage.getItem("hour-16"));
+  $("#hour-17 .description").val(localStorage.getItem("hour-17"));
 }
 
 let saveBtn = document.getElementsByClassName('saveBtn')
-$("saveBtn").on("click", saveInput)
-
-  // block by comparing the id to the current hour. HINTS: How can the id
-
-
-  /* event listener to save button to save text in local storage using ID*/
-
-// TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
+$(saveBtn).on("click", saveInput)
 
   
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-
-
-// /* GIVEN I am using a daily planner to create a schedule
-// WHEN I click into a time block
-// THEN I can enter an event
-// WHEN I click the save button for that time block
-// THEN the text for that event is saved in local storage
-// WHEN I refresh the page
-// THEN the saved events persist
